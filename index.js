@@ -10,8 +10,8 @@ app.use(express.json())
 const cors = require('cors');
 app.use(cors());
 
-
-const dbPath = path.join(__dirname, 'todo.db')
+require('dotenv').config();
+const dbPath = process.env.DATABASE_URL || path.join(__dirname, 'todo.db');
 
 let db = null
 
@@ -21,7 +21,7 @@ const initializeDBAndServer = async () => {
       filename: dbPath,
       driver: sqlite3.Database,
     })
-    app.listen(3000, () => {
+    app.listen(process.env.PORT, () => {
       console.log('Server Running at http://localhost:3000/')
     })
   } catch (e) {
@@ -69,7 +69,7 @@ app.post("/login", async (request, response) => {
             user_id: dbUser.id,
             username
         }
-        const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN", {expiresIn: '7d'});
+        const jwtToken = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '7d'});
         const createSessionQuery = `
           INSERT INTO sessions (user_id) 
           VALUES (${dbUser.id})`;
@@ -90,7 +90,7 @@ const authenticateToken = (req, res, next) => {
         token = authHeader.split(' ')[1];
     else
         return res.sendStatus(401); 
-    jwt.verify(token, "MY_SECRET_TOKEN", (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) return res.sendStatus(403); 
         req.user = user; //storing decoded jwt payload in req
         next();
