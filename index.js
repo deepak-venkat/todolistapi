@@ -8,8 +8,8 @@ const app = express()
 app.use(express.json())
 
 const cors = require('cors');
-app.use(cors({
-  origin: 'https://your-netlify-site.netlify.app',
+app.use(cors({                          //app.use(cors()) enables all origins
+  origin: 'https://dvatodolist.netlify.app/',
   credentials: true,
 }));
 
