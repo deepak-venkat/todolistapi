@@ -14,7 +14,7 @@ app.use(cors({                          //app.use(cors()) enables all origins
 }));
 
 require('dotenv').config();
-const dbPath = process.env.DATABASE_URL || path.join(__dirname, 'todo.db');
+const dbPath = process.env.DATABASE_URL;
 
 let db = null
 
