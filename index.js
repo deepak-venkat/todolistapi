@@ -9,7 +9,7 @@ app.use(express.json())
 
 const cors = require('cors');
 app.use(cors({                          //app.use(cors()) enables all origins
-  origin: 'https://dvatodolist.netlify.app/',
+  origin: 'https://dvatodolist.netlify.app',
   credentials: true,
 }));
 
