@@ -5,7 +5,6 @@ const {open} = require('sqlite')
 const sqlite3 = require('sqlite3')
 const bcrypt = require('bcryptjs')
 const app = express()
-app.use(express.json())
 
 const cors = require('cors');
 app.use(cors({                          //app.use(cors()) enables all origins
@@ -13,8 +12,10 @@ app.use(cors({                          //app.use(cors()) enables all origins
   credentials: true,
 }));
 
+app.use(express.json())
+
 require('dotenv').config();
-const dbPath = process.env.DATABASE_URL;
+const dbPath = path.join(__dirname, 'todo.db');
 
 let db = null
 
