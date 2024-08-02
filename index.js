@@ -8,7 +8,10 @@ const app = express()
 app.use(express.json())
 
 const cors = require('cors');
-app.use(cors());
+app.use(cors({
+  origin: 'https://your-netlify-site.netlify.app',
+  credentials: true,
+}));
 
 require('dotenv').config();
 const dbPath = process.env.DATABASE_URL || path.join(__dirname, 'todo.db');
